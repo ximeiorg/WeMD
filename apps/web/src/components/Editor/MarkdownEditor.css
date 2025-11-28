@@ -22,7 +22,7 @@
 
 .editor-container {
     flex: 1;
-    overflow: auto;
+    overflow: hidden;
 }
 
 /* CodeMirror 自定义样式 */

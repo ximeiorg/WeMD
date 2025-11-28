@@ -433,4 +433,46 @@ export const basicTheme = `/* 默认样式，最佳实践 */
   line-height: 35px;
   z-index: 20;
 }
+
+#wemd .callout {
+  margin: 24px 0;
+  padding: 18px 20px;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  box-shadow: 0 12px 25px rgba(15, 23, 42, 0.08);
+}
+
+#wemd .callout-title {
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 0.05em;
+}
+
+#wemd .callout-icon {
+  font-size: 18px;
+}
+
+#wemd .callout-note { border-left: 4px solid #6366f1; background: #f5f5ff; }
+#wemd .callout-info { border-left: 4px solid #0ea5e9; background: #f0f9ff; }
+#wemd .callout-success { border-left: 4px solid #10b981; background: #ecfdf5; }
+#wemd .callout-warning { border-left: 4px solid #f59e0b; background: #fffbeb; }
+#wemd .callout-danger { border-left: 4px solid #ef4444; background: #fff5f5; }
+
+#wemd .task-list-item {
+  list-style: none;
+  margin-left: -1.2em;
+  margin-bottom: 6px;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+#wemd .task-list-item input[type='checkbox'] {
+  margin-top: 4px;
+  pointer-events: none;
+}
 `;

@@ -1,5 +1,6 @@
 import { Toaster } from 'react-hot-toast';
 import { Header } from './components/Header/Header';
+import { HistoryPanel } from './components/History/HistoryPanel';
 import { MarkdownEditor } from './components/Editor/MarkdownEditor';
 import { MarkdownPreview } from './components/Preview/MarkdownPreview';
 import './styles/global.css';
@@ -28,11 +29,16 @@ function App() {
       />
       <Header />
       <main className="app-main">
-        <div className="editor-pane">
-          <MarkdownEditor />
+        <div className="history-pane">
+          <HistoryPanel />
         </div>
-        <div className="preview-pane">
-          <MarkdownPreview />
+        <div className="workspace">
+          <div className="editor-pane">
+            <MarkdownEditor />
+          </div>
+          <div className="preview-pane">
+            <MarkdownPreview />
+          </div>
         </div>
       </main>
     </div>

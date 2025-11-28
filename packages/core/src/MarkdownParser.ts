@@ -1,8 +1,14 @@
 import MarkdownIt from "markdown-it";
+import markdownItContainer from "markdown-it-container";
 import markdownItDeflist from "markdown-it-deflist";
 import markdownItImplicitFigures from "markdown-it-implicit-figures";
 import markdownItTableOfContents from "markdown-it-table-of-contents";
 import markdownItRuby from "markdown-it-ruby";
+import markdownItMark from "markdown-it-mark";
+import markdownItTaskLists from "markdown-it-task-lists";
+import markdownItSub from "markdown-it-sub";
+import markdownItSup from "markdown-it-sup";
+import { full as markdownItEmoji } from "markdown-it-emoji";
 
 // Local plugins
 // @ts-ignore
@@ -47,6 +53,28 @@ export const createMarkdownParser = () => {
         },
     });
 
+    const calloutConfigs = [
+        { type: "note", label: "提示", icon: "💡" },
+        { type: "info", label: "信息", icon: "ℹ️" },
+        { type: "success", label: "成功", icon: "✅" },
+        { type: "warning", label: "注意", icon: "⚠️" },
+        { type: "danger", label: "警告", icon: "❗" },
+    ];
+
+    const renderCallout = (type: string, defaultTitle: string, icon: string) => (tokens, idx) => {
+        const token = tokens[idx];
+        if (token.nesting === 1) {
+            const info = token.info.trim().slice(type.length).trim();
+            const title = info || defaultTitle;
+            const escaped = markdownParser.utils.escapeHtml(title);
+            return (
+                `\n<section class="callout callout-${type}">` +
+                `<div class="callout-title"><span class="callout-icon">${icon}</span><span>${escaped}</span></div>\n`
+            );
+        }
+        return "</section>\n";
+    };
+
     markdownParser
         .use(markdownItSpan) // 在标题标签中添加span
         .use(markdownItTableContainer) // 在表格外部添加容器
@@ -62,7 +90,19 @@ export const createMarkdownParser = () => {
         .use(markdownItDeflist) // 定义列表
         .use(markdownItLiReplacer) // li 标签中加入 p 标签
         .use(markdownItImageFlow) // 横屏移动插件
-        .use(markdownItMultiquote); // 给多级引用加 class
+        .use(markdownItMultiquote) // 给多级引用加 class
+        .use(markdownItMark) // 高亮文本 ==text==
+        .use(markdownItSub) // 下标 H~2~O
+        .use(markdownItSup) // 上标 x^2^
+        .use(markdownItEmoji) // Emoji :smile:
+        .use(markdownItTaskLists, { enabled: true, label: false, labelAfter: false }); // 任务清单渲染
+
+    calloutConfigs.forEach((config) => {
+        markdownParser.use(markdownItContainer, config.type, {
+            validate: (params: string) => params.trim().startsWith(config.type),
+            render: renderCallout(config.type, config.label, config.icon),
+        });
+    });
 
     return markdownParser;
 };

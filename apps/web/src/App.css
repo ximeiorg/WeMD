@@ -1,33 +1,82 @@
 .app {
-  display: flex;
-  flex-direction: column;
   height: 100vh;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-page);
 }
 
 .app-main {
   flex: 1;
+  min-height: 0;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 28px;
+  padding: 24px 40px 40px;
+  max-width: 1500px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
   overflow: hidden;
+}
+
+.history-pane {
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 20px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
+  gap: 28px;
+  height: 100%;
+  min-height: 0;
 }
 
 .editor-pane,
 .preview-pane {
   height: 100%;
+  min-height: 0;
+  border-radius: 20px;
+  border: 1px solid var(--border-light);
+  background: var(--bg-primary);
+  box-shadow: var(--shadow-md);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 /* 响应式布局 */
-@media (max-width: 1024px) {
+@media (max-width: 1440px) {
   .app-main {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
+    padding: 20px 24px 32px;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1280px) {
   .app-main {
-    grid-template-rows: 300px 1fr;
+    grid-template-columns: 240px 1fr;
+  }
+
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 960px) {
+  .app-main {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    padding: 16px;
+    height: auto;
+  }
+
+  .history-pane {
+    height: auto;
   }
 }

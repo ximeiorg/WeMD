@@ -460,4 +460,116 @@ export const customDefaultTheme = `/* 自定义样式,实时生效,浏览器实�
 #wemd .inline-equation svg { 
   vertical-align: middle;
 }
+
+/* Callout 提示块 */
+#wemd .callout {
+  margin: 28px 0;
+  padding: 22px 24px;
+  border-radius: 22px;
+  border: 1px solid rgba(7, 193, 96, 0.15);
+  background: #ffffff;
+  box-shadow: 0 25px 45px rgba(15, 23, 42, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+#wemd .callout::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  pointer-events: none;
+  background: linear-gradient(120deg, rgba(7,193,96,0.05), rgba(7,89,193,0.03));
+}
+
+#wemd .callout-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #0f172a;
+  font-size: 16px;
+  letter-spacing: 0.05em;
+}
+
+#wemd .callout-icon {
+  font-size: 20px;
+}
+
+#wemd .callout-note {
+  border-color: rgba(100, 116, 255, 0.25);
+  background: linear-gradient(135deg, #f7f9ff, #edf2ff);
+}
+
+#wemd .callout-info {
+  border-color: rgba(14, 165, 233, 0.25);
+  background: linear-gradient(135deg, #f0f9ff, #e0f2ff);
+}
+
+#wemd .callout-success {
+  border-color: rgba(16, 185, 129, 0.25);
+  background: linear-gradient(135deg, #f1fff9, #e6f9f0);
+}
+
+#wemd .callout-warning {
+  border-color: rgba(249, 158, 0, 0.25);
+  background: linear-gradient(135deg, #fff8ed, #fff3dc);
+}
+
+#wemd .callout-danger {
+  border-color: rgba(239, 68, 68, 0.25);
+  background: linear-gradient(135deg, #fff5f5, #ffe7e7);
+}
+
+/* 任务清单 */
+#wemd .task-list-item {
+  list-style: none;
+  margin-left: -1.5em;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+#wemd .task-list-item input[type='checkbox'] {
+  margin-top: 4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  pointer-events: none;
+  accent-color: #07c160;
+}
+
+#wemd .task-list-item input[type='checkbox']:disabled {
+  opacity: 0.9;
+}
+
+#wemd .callout-tip {
+  border-color: rgba(139, 92, 246, 0.25);
+  background: linear-gradient(135deg, #f5f3ff, #ede9fe);
+}
+
+/* 高亮文本 */
+#wemd mark {
+  background: linear-gradient(135deg, #fff9c4, #fff59d);
+  color: #1a1a1a;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-weight: 500;
+}
+
+/* 上标 */
+#wemd sup {
+  font-size: 0.75em;
+  vertical-align: super;
+  color: #059669;
+}
+
+/* 下标 */
+#wemd sub {
+  font-size: 0.75em;
+  vertical-align: sub;
+  color: #059669;
+}
 `;
