@@ -1,39 +1,93 @@
-// Custom WeChat-themed markdown highlighting
+// 优雅的 Markdown 编辑器主题
 import { HighlightStyle, syntaxHighlighting } from '@codemirror/language';
 import { tags as t } from '@lezer/highlight';
 
 export const wechatMarkdownHighlighting = syntaxHighlighting(
     HighlightStyle.define([
-        // Headers - different shades of dark for hierarchy
-        { tag: t.heading1, fontWeight: '700', fontSize: '1.8em', color: '#0f172a' },
-        { tag: t.heading2, fontWeight: '700', fontSize: '1.5em', color: '#1e293b' },
-        { tag: t.heading3, fontWeight: '600', fontSize: '1.3em', color: '#334155' },
-        { tag: t.heading4, fontWeight: '600', fontSize: '1.1em', color: '#475467' },
-        { tag: t.heading5, fontWeight: '600', color: '#64748b' },
-        { tag: t.heading6, fontWeight: '600', color: '#64748b' },
+        // 标题层次
+        {
+            tag: t.heading1,
+            fontWeight: '700',
+            fontSize: '1.75em',
+            color: '#1a202c',
+        },
+        {
+            tag: t.heading2,
+            fontWeight: '700',
+            fontSize: '1.5em',
+            color: '#2d3748',
+        },
+        {
+            tag: t.heading3,
+            fontWeight: '600',
+            fontSize: '1.25em',
+            color: '#4a5568',
+        },
+        {
+            tag: t.heading4,
+            fontWeight: '600',
+            fontSize: '1.1em',
+            color: '#4a5568',
+        },
+        {
+            tag: t.heading5,
+            fontWeight: '600',
+            color: '#718096',
+        },
+        {
+            tag: t.heading6,
+            fontWeight: '600',
+            color: '#718096',
+        },
 
-        // Emphasis
-        { tag: t.emphasis, fontStyle: 'italic', color: '#64748b' },
-        { tag: t.strong, fontWeight: '700', color: '#0f172a' },
-        { tag: t.strikethrough, textDecoration: 'line-through', color: '#94a3b8' },
+        // 强调样式
+        {
+            tag: t.emphasis,
+            fontStyle: 'italic',
+            color: '#2d3748',
+        },
+        {
+            tag: t.strong,
+            fontWeight: '700',
+            color: '#1a202c',
+        },
+        {
+            tag: t.strikethrough,
+            textDecoration: 'line-through',
+            color: '#a0aec0',
+        },
 
-        // Links - WeChat green
-        { tag: t.link, color: '#07c160', textDecoration: 'underline' },
-        { tag: t.url, color: '#07c160' },
+        // 链接
+        {
+            tag: t.link,
+            color: '#07c160',
+            fontWeight: '500',
+        },
+        {
+            tag: t.url,
+            color: '#38b2ac',
+        },
 
-        // Code
-        { tag: t.monospace, fontFamily: 'var(--font-mono)', backgroundColor: '#f1f5f9', padding: '2px 4px', borderRadius: '3px', color: '#e11d48' },
-        { tag: t.meta, color: '#94a3b8' },
+        // 行内代码
+        {
+            tag: t.monospace,
+            fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
+            backgroundColor: '#f7fafc',
+            color: '#e53e3e',
+            padding: '2px 5px',
+            borderRadius: '3px',
+            fontSize: '0.9em',
+        },
 
-        // Lists
-        { tag: t.list, color: '#07c160' },
-
-        // Quotes
-        { tag: t.quote, color: '#64748b', fontStyle: 'italic' },
-
-        // Special
-        { tag: t.keyword, color: '#07c160', fontWeight: '600' },
-        { tag: t.atom, color: '#059669' },
-        { tag: t.contentSeparator, color: '#e2e8f0', fontWeight: '700' },
+        // 其他
+        {
+            tag: t.meta,
+            color: '#a0aec0',
+        },
+        {
+            tag: t.comment,
+            color: '#a0aec0',
+            fontStyle: 'italic',
+        },
     ])
 );

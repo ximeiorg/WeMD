@@ -61,19 +61,28 @@ export const defaultMarkdown = `# 欢迎使用 WeMD
 
 ## 1. 基础语法
 **这是加粗文本**
+
 *这是斜体文本*
+
 ***这是加粗斜体文本***
+
 ~~这是删除线文本~~
+
 ==这是高亮文本==
+
 这是一个 [链接](https://github.com/your-repo)
 
 ## 2. 特殊格式
 ### 上标和下标
+
 水的化学式：H~2~O
+
 爱因斯坦质能方程：E=mc^2^
 
 ### Emoji 表情
-今天天气真好 :sunny: 让我们一起学习 :books: 加油 :rocket:
+今天天气真好 :sunny: 
+让我们一起学习 :books: 
+加油 :rocket:
 
 ## 3. 列表展示
 ### 无序列表
@@ -87,11 +96,6 @@ export const defaultMarkdown = `# 欢迎使用 WeMD
 2. 第二步
 3. 第三步
 
-### 任务列表
-- [x] 已完成任务
-- [ ] 待办任务
-- [ ] 计划中的任务
-
 ## 4. 引用
 > 这是一个一级引用
 > 
@@ -102,6 +106,18 @@ export const defaultMarkdown = `# 欢迎使用 WeMD
 
 ::: tip
 这是一个技巧提示块 (Tip)
+:::
+
+::: note
+这是一个提示块 (Note)
+:::
+
+::: info
+这是一个信息提示块 (Info)
+:::
+
+::: success
+这是一个成功提示块 (Success)
 :::
 
 ::: warning
@@ -146,7 +162,7 @@ $$
 ---
 
 ## 9. 图片
-![WeMD](https://via.placeholder.com/800x400?text=WeMD+Studio)
+![WeMD](https://wemd-1302564514.cos.ap-guangzhou.myqcloud.com/images/CleanShot%202025-11-28%20at%2016.40.11%402x.png)
 
 **开始编辑吧!** 🚀
 `;
@@ -390,6 +406,19 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
 
       container.innerHTML = styledHtml;
 
+      // 关键步骤：调用 MathJax 渲染公式
+      // 必须先渲染成 SVG，后续的 processMathJaxForWechat 才能处理
+      if (window.MathJax) {
+        try {
+          // 清除之前的渲染状态（如果有）
+          window.MathJax.typesetClear([container]);
+          // 执行渲染
+          await window.MathJax.typesetPromise([container]);
+        } catch (e) {
+          console.error('MathJax rendering failed during copy:', e);
+        }
+      }
+
       // Process for WeChat (MathJax etc)
       processMathJaxForWechat(container);
 
@@ -422,7 +451,7 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
         }
       }
 
-      toast.success('已复制!可以直接粘贴到微信公众号编辑器了', {
+      toast.success('已复制，可以直接粘贴至微信公众号', {
         duration: 3000,
         icon: '✅',
       });
@@ -435,29 +464,74 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
   },
 }));
 
-// 处理 MathJax 元素以适配微信
+// 处理 MathJax 元素以适配微信（参考 legacy 实现，结合 DOM 和字符串处理）
 function processMathJaxForWechat(element: HTMLElement): void {
-  const mjxs = element.getElementsByTagName('mjx-container');
-  for (let i = 0; i < mjxs.length; i++) {
-    const mjx = mjxs[i] as HTMLElement;
-    if (!mjx.hasAttribute('jax')) {
-      break;
+  // 1. DOM 操作阶段：处理容器标签和 SVG 尺寸
+  const mjxs = Array.from(element.getElementsByTagName('mjx-container'));
+
+  for (const mjx of mjxs) {
+    const htmlMjx = mjx as HTMLElement;
+    if (!htmlMjx.hasAttribute('jax')) {
+      continue;
     }
-    // 移除不需要的元素
-    const assistives = mjx.getElementsByTagName('mjx-assistive-mml');
-    if (assistives.length > 0) {
-      assistives[0].remove();
+
+    const isBlock = htmlMjx.getAttribute('display') === 'true';
+    const newTag = isBlock ? 'section' : 'span';
+    const newEl = document.createElement(newTag);
+
+    // 复制所有属性（除了被移除的）
+    for (const attr of Array.from(htmlMjx.attributes)) {
+      if (['jax', 'display', 'tabindex', 'ctxtmenu_counter'].includes(attr.name)) continue;
+      newEl.setAttribute(attr.name, attr.value);
     }
-    // 转换为图片或 SVG (这里简化处理，保留 SVG)
-    mjx.style.cssText = 'display: inline-block; margin: 0 2px; vertical-align: middle;';
-    const svg = mjx.querySelector('svg');
+
+    // 强制设置显示模式和样式
+    newEl.style.cssText = htmlMjx.style.cssText;
+    if (isBlock) {
+      newEl.style.display = 'block';
+      newEl.style.textAlign = 'center';
+      newEl.style.margin = '1em 0';
+    } else {
+      newEl.style.display = 'inline-block';
+      newEl.style.verticalAlign = 'middle';
+      newEl.style.margin = '0 2px';
+    }
+
+    // 移动内容
+    while (htmlMjx.firstChild) {
+      newEl.appendChild(htmlMjx.firstChild);
+    }
+
+    // 处理 SVG 尺寸
+    const svg = newEl.querySelector('svg');
     if (svg) {
-      svg.style.cssText = 'display: block; overflow: visible;';
-      // 设置固定尺寸防止变形
       const width = svg.getAttribute('width');
       const height = svg.getAttribute('height');
+
+      svg.removeAttribute('width');
+      svg.removeAttribute('height');
+
+      svg.style.display = 'block';
+      svg.style.overflow = 'visible';
       if (width) svg.style.width = width;
       if (height) svg.style.height = height;
     }
+
+    // 替换原元素
+    htmlMjx.parentNode?.replaceChild(newEl, htmlMjx);
   }
+
+  // 2. 字符串操作阶段：处理 SVG 内部样式和清理（复刻 Legacy 正则逻辑）
+  let html = element.innerHTML;
+
+  // 处理 .mjx-solid 类 (Legacy 关键步骤)
+  html = html.replace(/class="mjx-solid"/g, 'fill="none" stroke-width="70"');
+
+  // 移除辅助元素
+  html = html.replace(/<mjx-assistive-mml.+?<\/mjx-assistive-mml>/g, "");
+
+  // 修复行内公式后的空格 (Legacy 逻辑)
+  html = html.replace(/svg><\/span>\s/g, "svg></span>&nbsp;");
+
+  element.innerHTML = html;
 }

@@ -93,7 +93,10 @@ button:hover {
 
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(7, 193, 96, 0.25);
+  /* 微信绿光晕 */
+  border-color: var(--accent-primary);
 }
 
 @media (prefers-color-scheme: light) {

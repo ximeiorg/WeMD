@@ -60,4 +60,11 @@
 /* 确保斜体样式生效 */
 #wemd em {
     font-style: italic !important;
+    font-synthesis: style;
+    /* 允许浏览器合成斜体 */
+}
+
+/* 针对整个预览容器启用字体合成 */
+#wemd {
+    font-synthesis: style weight;
 }

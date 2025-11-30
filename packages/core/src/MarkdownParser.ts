@@ -5,7 +5,7 @@ import markdownItImplicitFigures from "markdown-it-implicit-figures";
 import markdownItTableOfContents from "markdown-it-table-of-contents";
 import markdownItRuby from "markdown-it-ruby";
 import markdownItMark from "markdown-it-mark";
-import markdownItTaskLists from "markdown-it-task-lists";
+
 import markdownItSub from "markdown-it-sub";
 import markdownItSup from "markdown-it-sup";
 import { full as markdownItEmoji } from "markdown-it-emoji";
@@ -54,7 +54,8 @@ export const createMarkdownParser = () => {
     });
 
     const calloutConfigs = [
-        { type: "note", label: "提示", icon: "💡" },
+        { type: "tip", label: "技巧", icon: "💡" },
+        { type: "note", label: "提示", icon: "📝" },
         { type: "info", label: "信息", icon: "ℹ️" },
         { type: "success", label: "成功", icon: "✅" },
         { type: "warning", label: "注意", icon: "⚠️" },
@@ -94,8 +95,7 @@ export const createMarkdownParser = () => {
         .use(markdownItMark) // 高亮文本 ==text==
         .use(markdownItSub) // 下标 H~2~O
         .use(markdownItSup) // 上标 x^2^
-        .use(markdownItEmoji) // Emoji :smile:
-        .use(markdownItTaskLists, { enabled: true, label: false, labelAfter: false }); // 任务清单渲染
+        .use(markdownItEmoji); // Emoji :smile:
 
     calloutConfigs.forEach((config) => {
         markdownParser.use(markdownItContainer, config.type, {

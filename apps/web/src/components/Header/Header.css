@@ -1,15 +1,22 @@
 .app-header {
     height: 64px;
-    background: var(--bg-primary);
-    border-bottom: 1px solid var(--border-light);
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 24px;
-    box-shadow: var(--shadow-sm);
+    padding: 0 32px;
     position: sticky;
     top: 0;
     z-index: 100;
+    transition: all 0.3s ease;
+}
+
+/* 滚动时增加阴影 (可选，需配合 JS，这里先给个默认微阴影) */
+.app-header {
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.02);
 }
 
 .header-left {
@@ -24,10 +31,12 @@
     gap: 12px;
     cursor: pointer;
     transition: transform 0.2s ease;
+    opacity: 0.9;
 }
 
 .logo:hover {
     transform: translateY(-1px);
+    opacity: 1;
 }
 
 .logo-text {
@@ -44,45 +53,51 @@
 }
 
 .logo-subtitle {
-    font-size: 12px;
-    color: var(--text-tertiary);
-    background: var(--bg-tertiary);
+    font-size: 11px;
+    color: var(--text-secondary);
+    background: rgba(0, 0, 0, 0.04);
     padding: 2px 8px;
-    border-radius: 4px;
+    border-radius: 100px;
+    /* 胶囊形状 */
     font-weight: 500;
+    letter-spacing: 0.5px;
 }
 
 .header-right {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 16px;
+    /* 增加间距 */
 }
 
-/* 主按钮 */
+/* 主按钮 - 更加精致 */
 .btn-primary {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 10px 20px;
-    background: linear-gradient(135deg, #07c160 0%, #05a850 100%) !important;
+    padding: 10px 24px;
+    background: var(--accent-gradient) !important;
     color: white !important;
     border: none;
-    border-radius: var(--radius-md);
-    font-size: 15px;
+    border-radius: 100px;
+    /* 全圆角 */
+    font-size: 14px;
     font-weight: 600;
-    box-shadow: 0 2px 8px rgba(7, 193, 96, 0.3);
-    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(7, 193, 96, 0.25);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
+    letter-spacing: 0.3px;
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(7, 193, 96, 0.4);
+    box-shadow: 0 8px 20px rgba(7, 193, 96, 0.35);
+    filter: brightness(1.05);
 }
 
 .btn-primary:active {
     transform: translateY(0);
-    box-shadow: 0 2px 6px rgba(7, 193, 96, 0.3);
+    box-shadow: 0 2px 8px rgba(7, 193, 96, 0.25);
 }
 
 .btn-primary svg {
@@ -90,31 +105,31 @@
     height: 18px;
 }
 
-/* 次要按钮 */
+/* 次要按钮 - 幽灵按钮风格 */
 .btn-secondary {
     display: flex;
     align-items: center;
     gap: 8px;
     padding: 10px 20px;
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    font-size: 15px;
-    font-weight: 600;
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid transparent;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 500;
     transition: all 0.2s ease;
     cursor: pointer;
 }
 
 .btn-secondary:hover {
-    background: var(--bg-hover);
-    border-color: var(--accent-primary);
-    color: var(--accent-primary);
+    background: rgba(0, 0, 0, 0.03);
+    color: var(--text-primary);
 }
 
 .btn-secondary svg {
     width: 18px;
     height: 18px;
+    opacity: 0.8;
 }
 
 /* 图标按钮 */
@@ -125,22 +140,25 @@
     width: 40px;
     height: 40px;
     background: transparent;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
+    border: none;
+    /* 移除边框 */
+    border-radius: 50%;
+    /* 圆形 */
     color: var(--text-secondary);
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
 .btn-icon:hover {
-    background: var(--bg-hover);
-    border-color: var(--accent-primary);
-    color: var(--accent-primary);
+    background: rgba(0, 0, 0, 0.04);
+    color: var(--text-primary);
+    transform: rotate(15deg);
+    /* 趣味微动效 */
 }
 
 .btn-icon svg {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
 }
 
 /* CSS 编辑器遮罩层 */

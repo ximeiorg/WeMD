@@ -10,20 +10,35 @@ function App() {
   return (
     <div className="app">
       <Toaster
-        position="top-right"
+        position="top-center"
         toastOptions={{
+          className: 'premium-toast',
           style: {
-            background: '#fff',
-            color: '#333',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-            borderRadius: '8px',
-            padding: '12px 16px',
+            background: 'rgba(255, 255, 255, 0.9)',
+            backdropFilter: 'blur(12px)',
+            WebkitBackdropFilter: 'blur(12px)',
+            color: '#1a1a1a',
+            boxShadow: '0 12px 30px -10px rgba(0, 0, 0, 0.12)',
+            borderRadius: '50px', // 胶囊形状
+            padding: '10px 20px',
+            fontSize: '14px',
+            fontWeight: 500,
+            border: '1px solid rgba(0, 0, 0, 0.05)',
+            maxWidth: '400px',
           },
           success: {
             iconTheme: {
-              primary: '#10b981',
+              primary: '#07c160', // 微信绿
               secondary: '#fff',
             },
+            duration: 2000,
+          },
+          error: {
+            iconTheme: {
+              primary: '#ef4444',
+              secondary: '#fff',
+            },
+            duration: 3000,
           },
         }}
       />

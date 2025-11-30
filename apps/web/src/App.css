@@ -11,9 +11,9 @@
   min-height: 0;
   display: grid;
   grid-template-columns: 280px minmax(0, 1fr);
-  gap: 28px;
-  padding: 24px 40px 40px;
-  max-width: 1500px;
+  gap: var(--spacing-xl);
+  padding: var(--spacing-xl) var(--spacing-xxl);
+  max-width: 1600px;
   width: 100%;
   margin: 0 auto;
   box-sizing: border-box;
@@ -24,16 +24,18 @@
   height: 100%;
   min-height: 0;
   overflow: hidden;
-  border-radius: 20px;
+  border-radius: var(--radius-xl);
   background: var(--bg-primary);
-  border: 1px solid var(--border-light);
-  box-shadow: var(--shadow-sm);
+  /* 移除边框，使用高级阴影 */
+  border: none;
+  box-shadow: var(--shadow-premium);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .workspace {
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
-  gap: 28px;
+  gap: var(--spacing-xl);
   height: 100%;
   min-height: 0;
 }
@@ -42,13 +44,22 @@
 .preview-pane {
   height: 100%;
   min-height: 0;
-  border-radius: 20px;
-  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  /* 移除边框，使用高级阴影 */
+  border: none;
   background: var(--bg-primary);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-premium);
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 悬浮微动效 */
+.editor-pane:hover,
+.preview-pane:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
 }
 
 /* 响应式布局 */
