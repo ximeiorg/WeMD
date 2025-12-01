@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
+import { Plus, Copy, Trash2, X, AlertTriangle } from 'lucide-react';
 import { useEditorStore } from '../../store/editorStore';
 import { useHistoryStore } from '../../store/historyStore';
 import './ThemePanel.css';
@@ -144,7 +145,7 @@ export function ThemePanel({ open, onClose }: ThemePanelProps) {
         <div className="theme-header">
           <h3>主题管理</h3>
           <button className="close-btn" onClick={onClose} aria-label="关闭">
-            ×
+            <X size={20} />
           </button>
         </div>
 
@@ -152,7 +153,7 @@ export function ThemePanel({ open, onClose }: ThemePanelProps) {
           {/* 左侧主题列表 */}
           <div className="theme-sidebar">
             <button className="btn-new-theme" onClick={handleCreateNew}>
-              ➕ 新建自定义主题
+              <Plus size={16} /> 新建自定义主题
             </button>
 
             {customThemes.length > 0 && (
@@ -189,6 +190,9 @@ export function ThemePanel({ open, onClose }: ThemePanelProps) {
             {showDeleteConfirm && (
               <div className="delete-confirm-overlay">
                 <div className="delete-confirm-box">
+                  <div className="confirm-icon-wrapper">
+                    <AlertTriangle size={24} color="#ef4444" />
+                  </div>
                   <h4>确认删除</h4>
                   <p>确定要删除主题 "{selectedTheme?.name}" 吗？此操作无法撤销。</p>
                   <div className="delete-confirm-actions">
@@ -253,10 +257,10 @@ export function ThemePanel({ open, onClose }: ThemePanelProps) {
               ) : isCustomTheme ? (
                 <>
                   <button className="btn-icon-text" onClick={handleDuplicate}>
-                    📋 复制
+                    <Copy size={16} /> 复制
                   </button>
                   <button className="btn-icon-text btn-danger" onClick={handleDeleteClick}>
-                    🗑️ 删除
+                    <Trash2 size={16} /> 删除
                   </button>
                   <div className="flex-spacer"></div>
                   <button className="btn-secondary" onClick={onClose}>
@@ -272,7 +276,7 @@ export function ThemePanel({ open, onClose }: ThemePanelProps) {
               ) : (
                 <>
                   <button className="btn-icon-text" onClick={handleDuplicate}>
-                    📋 复制
+                    <Copy size={16} /> 复制
                   </button>
                   <div className="flex-spacer"></div>
                   <button className="btn-secondary" onClick={onClose}>

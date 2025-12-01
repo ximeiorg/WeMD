@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import toast from 'react-hot-toast';
+import { Search, Plus, Trash2, MoreHorizontal, Edit2, Copy } from 'lucide-react';
 import { useEditorStore } from '../../store/editorStore';
 import { useHistoryStore } from '../../store/historyStore';
 import type { HistorySnapshot } from '../../store/historyStore';
@@ -172,33 +173,39 @@ export function HistoryPanel() {
         <div className="history-header">
           <h3>历史记录</h3>
           <div className="history-actions">
-            <button className="btn-secondary" onClick={handleCreateArticle}>
-              新增文章
+            <button className="btn-secondary btn-icon-only" onClick={handleCreateArticle} title="新增文章">
+              <Plus size={16} />
             </button>
             <button
-              className="btn-secondary"
+              className="btn-secondary btn-icon-only"
               onClick={async () => {
-                await clearHistory();
-                resetDocument();
+                if (confirm('确定要清空所有历史记录吗？')) {
+                  await clearHistory();
+                  resetDocument();
+                }
               }}
+              title="清空历史"
             >
-              清空
+              <Trash2 size={16} />
             </button>
           </div>
         </div>
         <div className="history-search">
-          <input
-            type="text"
-            placeholder="搜索历史内容或主题..."
-            value={filter}
-            onChange={(e) => setFilter(e.target.value)}
-          />
+          <div className="search-wrapper">
+            <Search size={14} className="search-icon" />
+            <input
+              type="text"
+              placeholder="搜索..."
+              value={filter}
+              onChange={(e) => setFilter(e.target.value)}
+            />
+          </div>
         </div>
         {loading ? (
-          <div className="history-empty">正在加载历史记录...</div>
+          <div className="history-empty">正在加载...</div>
         ) : !hasEntries ? (
           <div className="history-empty">
-            {filter ? '没有匹配的历史记录' : '暂无历史记录，编辑内容后会自动保存。'}
+            {filter ? '无匹配结果' : '暂无记录'}
           </div>
         ) : (
           <div className="history-body">
@@ -217,6 +224,7 @@ export function HistoryPanel() {
                           <input
                             value={tempTitle}
                             onChange={(e) => setTempTitle(e.target.value)}
+                            autoFocus
                           />
                           <button onClick={() => confirmRename(entry)}>确认</button>
                           <button onClick={() => setRenamingId(null)}>取消</button>
@@ -232,11 +240,7 @@ export function HistoryPanel() {
                         onClick={(e) => handleMenuToggle(e, entry)}
                         aria-label="操作菜单"
                       >
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                          <circle cx="3" cy="8" r="1.5" />
-                          <circle cx="8" cy="8" r="1.5" />
-                          <circle cx="13" cy="8" r="1.5" />
-                        </svg>
+                        <MoreHorizontal size={16} />
                       </button>
                     </div>
                   </div>
@@ -253,9 +257,16 @@ export function HistoryPanel() {
             style={{ top: menuPosition.top, left: menuPosition.left }}
             onClick={(e) => e.stopPropagation()}
           >
-            <button onClick={() => { copyTitle(menuEntry); closeActionMenu(); }}>复制标题</button>
-            <button onClick={() => { startRename(menuEntry); closeActionMenu(); }}>重命名</button>
+            <button onClick={() => { copyTitle(menuEntry); closeActionMenu(); }}>
+              <Copy size={14} />
+              复制标题
+            </button>
+            <button onClick={() => { startRename(menuEntry); closeActionMenu(); }}>
+              <Edit2 size={14} />
+              重命名
+            </button>
             <button className="danger" onClick={() => { handleDelete(menuEntry.id); closeActionMenu(); }}>
+              <Trash2 size={14} />
               删除
             </button>
           </div>,

@@ -18,7 +18,11 @@
     --text-secondary: #64748b;
     /* 蓝灰色次要文本 */
     --text-tertiary: #94a3b8;
-    /* 浅色辅助文本 */
+    /* 玻璃态变量 */
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.5);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+    --glass-blur: blur(20px);
 
     --border-color: #e2e8f0;
     /* 浅色边框 */
