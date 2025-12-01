@@ -242,3 +242,21 @@
     background-color: var(--bg-hover);
     padding: 2px 0;
 }
+
+/* === 编辑器底部状态栏 === */
+.editor-footer {
+    padding: 8px 24px;
+    border-top: 1px solid var(--border-light);
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.editor-stat {
+    font-size: 11px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}

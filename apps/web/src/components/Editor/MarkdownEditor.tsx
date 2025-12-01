@@ -7,6 +7,7 @@ import { wechatMarkdownHighlighting } from './markdownTheme';
 import { useEditorStore } from '../../store/editorStore';
 import { useSettingsStore } from '../../store/settingsStore';
 import { uploadImageToGitHub, uploadImageToLocal } from '../../services/imageUploader';
+import { countWords, countLines } from '../../utils/wordCount';
 import toast from 'react-hot-toast';
 import './MarkdownEditor.css';
 
@@ -187,12 +188,19 @@ export function MarkdownEditor() {
         });
     }, [content]);
 
+    const wordCount = countWords(content);
+    const lineCount = countLines(content);
+
     return (
         <div className="markdown-editor">
             <div className="editor-header">
                 <span className="editor-title">Markdown 编辑器</span>
             </div>
             <div ref={editorRef} className="editor-container" />
+            <div className="editor-footer">
+                <span className="editor-stat">行数: {lineCount}</span>
+                <span className="editor-stat">字数: {wordCount}</span>
+            </div>
         </div>
     );
 }
