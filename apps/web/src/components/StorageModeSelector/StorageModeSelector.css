@@ -86,7 +86,9 @@
 .storage-modal-panel {
   background: #fff;
   border-radius: 20px;
-  width: min(480px, 100%);
+  width: min(900px, 90vw);
+  max-height: 85vh;
+  overflow-y: auto;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(0, 0, 0, 0.06);
   padding: 24px;

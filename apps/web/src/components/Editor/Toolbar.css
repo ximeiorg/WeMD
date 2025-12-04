@@ -31,3 +31,27 @@
 .md-toolbar-btn:active {
     transform: scale(0.95);
 }
+
+.md-toolbar-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.md-toolbar-btn:disabled:hover {
+    background: transparent;
+    color: #64748b;
+}
+
+.spinning {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

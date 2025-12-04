@@ -196,7 +196,7 @@ export default (md, options) => {
       // return katex.renderToString(latex, options);
     } catch (error) {
       if (options.throwOnError) {
-        console.log(error);
+        throw error;
       }
       return latex;
     }
@@ -209,12 +209,11 @@ export default (md, options) => {
   var katexBlock = function(latex) {
     options.displayMode = true;
     try {
-      // console.log(latex);
       return "$$" + latex + "$$";
       // return "<p>" + katex.renderToString(latex, options) + "</p>";
     } catch (error) {
       if (options.throwOnError) {
-        console.log(error);
+        throw error;
       }
       return latex;
     }

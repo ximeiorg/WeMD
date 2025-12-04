@@ -2,8 +2,9 @@ import { useCallback, useState } from 'react';
 import { useEditorStore } from '../../store/editorStore';
 import { ThemePanel } from '../Theme/ThemePanel';
 import { StorageModeSelector } from '../StorageModeSelector/StorageModeSelector';
+import { ImageHostSettings } from '../Settings/ImageHostSettings';
 import './Header.css';
-import { Layers, Palette, Send } from 'lucide-react';
+import { Layers, Palette, Send, ImageIcon } from 'lucide-react';
 
 export function Header() {
     const { copyToWechat } = useEditorStore();
@@ -11,6 +12,7 @@ export function Header() {
     const setWorkspaceDir = useEditorStore((state) => state.setWorkspaceDir);
     const [showThemePanel, setShowThemePanel] = useState(false);
     const [showStorageModal, setShowStorageModal] = useState(false);
+    const [showImageHostModal, setShowImageHostModal] = useState(false);
 
     const handlePickWorkspace = useCallback(async () => {
         const electron = (window as any).electron;
@@ -53,6 +55,10 @@ export function Header() {
                             <span>存储模式</span>
                         </button>
                     )}
+                    <button className="btn-secondary" onClick={() => setShowImageHostModal(true)}>
+                        <ImageIcon size={18} strokeWidth={2} />
+                        <span>图床设置</span>
+                    </button>
                     <button className="btn-secondary" onClick={() => setShowThemePanel(true)}>
                         <Palette size={18} strokeWidth={2} />
                         <span>主题管理</span>
@@ -65,6 +71,7 @@ export function Header() {
             </header>
 
             <ThemePanel open={showThemePanel} onClose={() => setShowThemePanel(false)} />
+
             {showStorageModal && (
                 <div className="storage-modal-overlay" onClick={() => setShowStorageModal(false)}>
                     <div className="storage-modal-panel" onClick={(e) => e.stopPropagation()}>
@@ -75,6 +82,20 @@ export function Header() {
                             </button>
                         </div>
                         <StorageModeSelector />
+                    </div>
+                </div>
+            )}
+
+            {showImageHostModal && (
+                <div className="storage-modal-overlay" onClick={() => setShowImageHostModal(false)}>
+                    <div className="storage-modal-panel" onClick={(e) => e.stopPropagation()}>
+                        <div className="storage-modal-header">
+                            <h3>图床设置</h3>
+                            <button className="storage-modal-close" onClick={() => setShowImageHostModal(false)} aria-label="关闭">
+                                ×
+                            </button>
+                        </div>
+                        <ImageHostSettings />
                     </div>
                 </div>
             )}

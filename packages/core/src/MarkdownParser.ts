@@ -46,7 +46,6 @@ export const createMarkdownParser = () => {
                         .replace(/span&nbsp;/g, "span "); // span标签修复
                     return '<pre class="custom"><code class="hljs">' + formatted + "</code></pre>";
                 } catch (e) {
-                    console.log(e);
                 }
             }
             return '<pre class="custom"><code class="hljs">' + markdownParser.utils.escapeHtml(str) + "</code></pre>";

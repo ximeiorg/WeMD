@@ -52,21 +52,15 @@ export function MarkdownEditor() {
                                 const file = item.getAsFile();
                                 if (!file) continue;
 
-                                const { imageHostingType, githubConfig, localConfig } = useSettingsStore.getState();
-
-                                // 根据图床类型选择上传函数
-                                let uploadPromise: Promise<{ url: string; filename: string }>;
-
-                                if (imageHostingType === 'github') {
-                                    if (!githubConfig.token || !githubConfig.repo) {
-                                        toast.error('请先在设置中配置 GitHub 图床信息');
-                                        return;
-                                    }
-                                    uploadPromise = uploadImageToGitHub(file, githubConfig);
-                                } else {
-                                    // local (includes COS via backend)
-                                    uploadPromise = uploadImageToLocal(file, localConfig);
-                                }
+                                // 使用 ImageHostManager 统一上传
+                                const uploadPromise = (async () => {
+                                    const saved = localStorage.getItem('imageHostConfig');
+                                    const imageHostConfig = saved ? JSON.parse(saved) : { type: 'official' };
+                                    const { ImageHostManager } = await import('../../services/image/ImageUploader');
+                                    const manager = new ImageHostManager(imageHostConfig);
+                                    const url = await manager.upload(file);
+                                    return { url, filename: file.name };
+                                })();
 
                                 const loadingText = `![上传中... ${file.name}]()`;
                                 const range = view.state.selection.main;

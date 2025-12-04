@@ -39,7 +39,6 @@ function startWatching(dir) {
                 }
             }, 300); // 300ms 防抖
         });
-        console.log(`Started watching: ${dir}`);
     } catch (error) {
         console.error('Failed to watch directory:', error);
     }

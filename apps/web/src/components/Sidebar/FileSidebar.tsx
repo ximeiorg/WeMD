@@ -135,7 +135,7 @@ export function FileSidebar() {
                 <div className="fs-context-menu-overlay" onClick={closeMenu}>
                     <div
                         className="fs-context-menu"
-                        style={{ top: menuPos.y, left: menuPos.x, position: 'absolute' }}
+                        style={{ top: menuPos.y, left: menuPos.x }}
                     >
                         <button onClick={() => startRename(menuTarget)}>
                             <Edit2 size={14} /> 重命名

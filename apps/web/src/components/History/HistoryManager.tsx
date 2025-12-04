@@ -73,7 +73,6 @@ export function HistoryManager() {
 
     // Check if this change matches the content we are restoring
     if (restoringContentRef.current !== null && markdown === restoringContentRef.current) {
-      console.log('[History] Content matched restoring content, skipping edit mark');
       restoringContentRef.current = null; // Reset
       return; // Skip marking as edited
     }
@@ -84,7 +83,6 @@ export function HistoryManager() {
     // 3. We are not loading
     // 4. History has finished loading at least once
     if (markdownChanged && !isRestoringRef.current && !loading && hasLoadedHistoryRef.current) {
-      console.log('[History] User edit detected:', { markdownChanged, isRestoring: isRestoringRef.current, loading, hasLoadedHistory: hasLoadedHistoryRef.current });
       hasUserEditedRef.current = true;
     }
 
@@ -94,7 +92,6 @@ export function HistoryManager() {
     if (storeLoading) return;
 
     if (!currentActiveId && currentHistory.length === 0 && markdown.trim()) {
-      console.log('[History] Creating initial snapshot');
       creatingInitialSnapshotRef.current = true;
       void saveSnapshot(
         {
@@ -117,14 +114,11 @@ export function HistoryManager() {
 
     // Prevent auto-save if user hasn't edited or if we are currently restoring history
     if (!hasUserEditedRef.current || isRestoringRef.current) {
-      // console.log('[History] Skipping auto-save:', { hasUserEdited: hasUserEditedRef.current, isRestoring: isRestoringRef.current });
       return;
     }
 
     const { activeId: currentActiveId, history: currentHistory, loading: storeLoading } = useHistoryStore.getState();
     if (storeLoading) return;
-
-    console.log('[History] Auto-saving...', { activeId: currentActiveId });
 
     if (!currentActiveId) {
       if (currentHistory.length === 0) {
@@ -200,7 +194,6 @@ export function HistoryManager() {
       setActiveId(candidateEntry.id);
     }
 
-    console.log('[History] Restoring content:', candidateEntry.id);
     isRestoringRef.current = true;
     restoringContentRef.current = candidateEntry.markdown; // Set expected content
     setMarkdown(candidateEntry.markdown);

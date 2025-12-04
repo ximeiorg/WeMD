@@ -1,0 +1,168 @@
+.image-host-settings {
+    padding: 0;
+    max-width: 900px;
+}
+
+.settings-layout {
+    display: flex;
+    gap: 24px;
+    min-height: 300px;
+    max-height: calc(85vh - 120px);
+}
+
+.host-type-selector {
+    flex: 0 0 240px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.host-type-selector label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.host-type-selector label:hover {
+    border-color: #cbd5e1;
+    background: #f8fafc;
+}
+
+.host-type-selector label:has(input:checked) {
+    border-color: #07c160;
+    background: #f0fdf4;
+}
+
+.host-option {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.host-option strong {
+    font-size: 15px;
+    color: #0f172a;
+}
+
+.host-option span {
+    font-size: 13px;
+    color: #64748b;
+}
+
+.host-config-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.config-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 40px;
+    background: #f8fafc;
+    border-radius: 12px;
+    border: 2px dashed #cbd5e1;
+}
+
+.config-empty p {
+    margin: 0;
+    font-size: 15px;
+    color: #64748b;
+}
+
+.host-config {
+    padding: 20px;
+    background: #f8fafc;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.config-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.config-field label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #334155;
+}
+
+.config-field input {
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.config-field input:focus {
+    border-color: #07c160;
+    box-shadow: 0 0 0 3px rgba(7, 193, 96, 0.1);
+}
+
+.config-field small {
+    font-size: 12px;
+    color: #64748b;
+}
+
+.config-field small a {
+    color: #07c160;
+    text-decoration: none;
+}
+
+.config-field small a:hover {
+    text-decoration: underline;
+}
+
+.host-config>small {
+    font-size: 12px;
+    color: #64748b;
+}
+
+.host-config>small a {
+    color: #07c160;
+    text-decoration: none;
+}
+
+.host-config>small a:hover {
+    text-decoration: underline;
+}
+
+.host-config button {
+    padding: 10px 20px;
+    background: #07c160;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    align-self: flex-start;
+}
+
+.host-config button:hover {
+    background: #06a84f;
+}
+
+.test-result {
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    background: #f1f5f9;
+    color: #334155;
+}
