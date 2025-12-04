@@ -59,6 +59,9 @@ export class UploadController {
       throw new BadRequestException('请上传文件');
     }
 
+    // Multer 默认按 latin1 解码文件名，这里转成 UTF-8，避免中文乱码
+    const originalName = Buffer.from(file.originalname, 'latin1').toString('utf8');
+
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
     const ext = extname(file.originalname);
     const filename = `${uniqueSuffix}${ext}`;
@@ -69,7 +72,7 @@ export class UploadController {
         const result = await this.cosService.uploadFile(file.buffer, filename);
         return {
           url: result.url,
-          filename: file.originalname,
+          filename: originalName,
         };
       } catch (error) {
         throw new BadRequestException('上传到云存储失败: ' + error.message);
@@ -83,7 +86,7 @@ export class UploadController {
     const url = `http://localhost:4000/uploads/${filename}`;
     return {
       url,
-      filename: file.originalname,
+      filename: originalName,
     };
   }
 }
