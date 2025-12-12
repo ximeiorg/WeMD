@@ -330,7 +330,8 @@ export const sunsetFilmTheme = `/* 落日胶片风格 */
     font-family: "Courier New", Courier, monospace;
     /* 打字机字体 */
     overflow-x: auto;
-    white-space: pre-wrap;
+    white-space: pre;
+  min-width: max-content;
     border: 4px solid #F7EED6;
 }
 

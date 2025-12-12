@@ -164,7 +164,7 @@
     border-radius: 0;
     /* 直角 */
     overflow-x: auto;
-    white-space: pre-wrap;
+    white-space: pre;
 }
 
 /* 如果没有语法高亮，设置默认颜色 */

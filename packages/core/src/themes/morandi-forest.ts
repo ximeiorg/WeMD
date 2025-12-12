@@ -282,7 +282,8 @@ export const morandiForestTheme = `/* 莫兰迪森林风格 */
   border-radius: 6px;
   font-family: sans-serif;
   overflow-x: auto;
-  white-space: pre-wrap;
+  white-space: pre;
+  min-width: max-content;
   border: 1px solid #DCE3DD;
 }
 

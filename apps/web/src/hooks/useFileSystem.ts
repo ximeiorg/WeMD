@@ -191,10 +191,8 @@ export function useFileSystem() {
 
                 // Simple YAML parser for our needs
                 const themeMatch = frontmatterRaw.match(/theme:\s*(.+)/);
-                const themeNameMatch = frontmatterRaw.match(/themeName:\s*(.+)/);
 
                 const theme = themeMatch ? themeMatch[1].trim() : 'default';
-                // themeName 暂不使用，selectTheme 会自动设置
 
                 setMarkdown(body);
                 useThemeStore.getState().selectTheme(theme);
@@ -333,7 +331,7 @@ themeName: ${themeName}
                 if (currentFile && currentFile.path === file.path) {
                     setCurrentFile({ ...currentFile, path: safeName, name: safeName });
                 }
-            } catch (error) {
+            } catch {
                 toast.error('重命名失败');
             }
         }

@@ -362,7 +362,8 @@ export const neoBrutalismTheme = `/* 新粗野主义风格 */
     /* 直角 */
     font-family: "Menlo", "Courier New", monospace;
     overflow-x: auto;
-    white-space: pre-wrap;
+    white-space: pre;
+  min-width: max-content;
     border: 2px solid #000;
     box-shadow: 6px 6px 0px #ddd;
 }

@@ -257,7 +257,7 @@
   border-radius: 6px;
   font-family: sans-serif;
   overflow-x: auto;
-  white-space: pre-wrap;
+  white-space: pre;
   border: 1px solid #DCE3DD;
 }
 

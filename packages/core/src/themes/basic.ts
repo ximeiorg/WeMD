@@ -200,18 +200,31 @@ export const basicTheme = `/* 默认样式，最佳实践 */
   border-top: 1px solid black;
 }
 
-/* 代码块 */
+/* 代码块容器 */
 #wemd pre {
   margin-top: 10px;
   margin-bottom: 10px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
+
+#wemd pre.custom {
+  padding: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  overflow-x: auto;
+}
+
 #wemd pre code {
-  display: -webkit-box;
+  display: block;
   font-family: Operator Mono, Consolas, Monaco, Menlo, monospace;
   border-radius: 0px;
   font-size: 12px;
+  white-space: pre;
+  min-width: max-content;
   -webkit-overflow-scrolling: touch;
 }
+
 #wemd pre code span {
   line-height: 26px;
 }
@@ -380,12 +393,19 @@ export const basicTheme = `/* 默认样式，最佳实践 */
   display: inline-block;
   word-wrap: break-word;
   white-space: normal;
-  vertical-align: middle;
-  width: 100%;
+  vertical-align: top;
+  width: 80%;
+  margin-right: 10px;
+  flex-shrink: 0;
 }
 
 #wemd .imageflow-img {
-  display: inline-block;
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+  object-fit: contain;
+  border-radius: 4px;
 }
 
 #wemd .imageflow-caption {

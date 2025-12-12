@@ -41,9 +41,7 @@ export const createMarkdownParser = () => {
                 try {
                     const formatted = highlightjs
                         .highlight(lang, str, true)
-                        .value.replace(/\n/g, "<br/>") // 换行用br表示
-                        .replace(/\s/g, "&nbsp;") // 用nbsp替换空格
-                        .replace(/span&nbsp;/g, "span "); // span标签修复
+                        .value;
                     return '<pre class="custom"><code class="hljs">' + formatted + "</code></pre>";
                 } catch (e) {
                 }

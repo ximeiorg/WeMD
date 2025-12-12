@@ -21,7 +21,7 @@ export interface SettingsStore {
 
 export const useSettingsStore = create<SettingsStore>()(
     persist(
-        (_set) => ({}),
+        () => ({}),
         {
             name: 'wemd-settings',
         }

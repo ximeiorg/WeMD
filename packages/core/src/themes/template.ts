@@ -343,7 +343,8 @@ export const templateTheme = `/*
     /* 等宽字体 */
     overflow-x: auto;
     /* 横向滚动 */
-    white-space: pre-wrap;
+    white-space: pre;
+  min-width: max-content;
     /* 保留空白和换行 */
     border: 1px solid #ddd;
     /* 边框 */

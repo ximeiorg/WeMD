@@ -303,7 +303,8 @@ export const luxuryGoldTheme = `/* 黑金奢华风格 */
     font-family: serif;
     /* 特意使用衬线体显示代码，极具艺术感 */
     overflow-x: auto;
-    white-space: pre-wrap;
+    white-space: pre;
+  min-width: max-content;
 }
 
 /* 如果没有语法高亮，设置默认深灰色 */

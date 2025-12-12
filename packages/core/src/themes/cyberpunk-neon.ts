@@ -278,7 +278,8 @@ export const cyberpunkNeonTheme = `/* 赛博朋克风格 */
     border-radius: 4px;
     font-size: 13px;
     overflow-x: auto;
-    white-space: pre-wrap;
+    white-space: pre;
+  min-width: max-content;
     /* 微妙的发光效果 */
     box-shadow: 
         0 0 10px rgba(0, 243, 255, 0.2),

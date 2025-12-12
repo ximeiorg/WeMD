@@ -320,7 +320,8 @@ export const knowledgeBaseTheme = `/* 知识库风格 */
     border-radius: 4px;
     font-family: "SFMono-Regular", Consolas, Menlo, monospace;
     overflow-x: auto;
-    white-space: pre-wrap;
+    white-space: pre;
+  min-width: max-content;
     border: none;
 }
 

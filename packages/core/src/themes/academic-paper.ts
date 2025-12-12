@@ -250,7 +250,8 @@ export const academicPaperTheme = `/* 学术论文风格 */
     border-radius: 0;
     /* 直角 */
     overflow-x: auto;
-    white-space: pre-wrap;
+    white-space: pre;
+  min-width: max-content;
 }
 
 /* 如果没有语法高亮，设置默认颜色 */
