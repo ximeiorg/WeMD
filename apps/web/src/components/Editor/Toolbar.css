@@ -86,3 +86,21 @@
     opacity: 1;
     visibility: visible;
 }
+
+/* 分隔符 */
+.md-toolbar-divider {
+    width: 1px;
+    height: 20px;
+    background: var(--border-light);
+    margin: 0 8px;
+}
+
+/* Toggle 按钮激活状态 */
+.md-toolbar-toggle.active {
+    background: color-mix(in srgb, var(--accent-primary) 20%, transparent);
+    color: var(--accent-primary);
+}
+
+.md-toolbar-toggle.active:hover {
+    background: color-mix(in srgb, var(--accent-primary) 30%, transparent);
+}

@@ -1,9 +1,9 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import {
     Bold, Italic, Strikethrough,
     Heading1, Heading2, Heading3,
     List, ListOrdered, Quote, Code,
-    Link, Image, Minus, Loader2
+    Link, Image, Minus, Loader2, ListEnd
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { ImageHostManager } from '../../services/image/ImageUploader';
@@ -14,9 +14,25 @@ interface ToolbarProps {
     onInsert: (prefix: string, suffix: string, placeholder: string) => void;
 }
 
+// 外链转脚注开关状态（全局，供复制服务使用）
+let linkToFootnoteEnabled = false;
+export function getLinkToFootnoteEnabled() {
+    return linkToFootnoteEnabled;
+}
+
 export function Toolbar({ onInsert }: ToolbarProps) {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [uploading, setUploading] = useState(false);
+    const [linkToFootnote, setLinkToFootnote] = useState(() => {
+        const saved = localStorage.getItem('wemd-link-to-footnote');
+        return saved === 'true';
+    });
+
+    // 同步状态到全局变量和 localStorage
+    useEffect(() => {
+        linkToFootnoteEnabled = linkToFootnote;
+        localStorage.setItem('wemd-link-to-footnote', String(linkToFootnote));
+    }, [linkToFootnote]);
 
     const tools = [
         { icon: Bold, label: "粗体", prefix: "**", suffix: "**", placeholder: "粗体文字" },
@@ -81,6 +97,12 @@ export function Toolbar({ onInsert }: ToolbarProps) {
         }
     };
 
+    const toggleLinkToFootnote = () => {
+        const next = !linkToFootnote;
+        setLinkToFootnote(next);
+        toast.success(next ? '已开启：外链转脚注' : '已关闭：外链转脚注', { duration: 2000 });
+    };
+
     return (
         <div className="md-toolbar">
             {tools.map((tool, index) => (
@@ -104,6 +126,18 @@ export function Toolbar({ onInsert }: ToolbarProps) {
                 {uploading ? <Loader2 size={16} className="spinning" /> : <Image size={16} />}
             </button>
 
+            {/* 分隔符 */}
+            <div className="md-toolbar-divider" />
+
+            {/* 外链转脚注开关 */}
+            <button
+                className={`md-toolbar-btn md-toolbar-toggle ${linkToFootnote ? 'active' : ''}`}
+                onClick={toggleLinkToFootnote}
+                data-tooltip={linkToFootnote ? '外链转脚注：开启' : '外链转脚注：关闭'}
+            >
+                <ListEnd size={16} />
+            </button>
+
             {/* 隐藏的文件输入 */}
             <input
                 ref={fileInputRef}
@@ -115,3 +149,4 @@ export function Toolbar({ onInsert }: ToolbarProps) {
         </div>
     );
 }
+
