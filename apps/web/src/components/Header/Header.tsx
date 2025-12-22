@@ -34,13 +34,20 @@ export function Header() {
     const platform = typeof window !== 'undefined' ? window.electron?.platform : undefined;
     const isWindows = platform === 'win32';
 
-    // Windows 使用自定义按钮，不需要 WCO inset 计算
+    // Windows 和 macOS 使用自定义处理，不需要 WCO inset 计算
     useEffect(() => {
-        if (!isElectron || isWindows) {
+        if (!isElectron) {
             document.documentElement.style.removeProperty('--titlebar-right-inset');
             document.documentElement.style.removeProperty('--titlebar-left-inset');
             return;
         }
+
+        if (isWindows) {
+            document.documentElement.style.removeProperty('--titlebar-right-inset');
+            document.documentElement.style.removeProperty('--titlebar-left-inset');
+            return;
+        }
+
         const controlsOverlay = (navigator as Navigator & {
             windowControlsOverlay?: {
                 visible?: boolean;
@@ -82,9 +89,14 @@ export function Header() {
         };
     }, [isElectron, isWindows]);
 
+    // Mac 平台使用内联样式强制避让
+    const headerStyle = (platform === 'darwin')
+        ? { paddingLeft: '100px' }
+        : undefined;
+
     return (
         <>
-            <header className="app-header">
+            <header className="app-header" style={headerStyle}>
                 <div className="header-left">
                     <div className="logo">
                         {isStructuralismUI ? <StructuralismLogoMark /> : <DefaultLogoMark />}

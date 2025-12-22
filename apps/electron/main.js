@@ -144,7 +144,7 @@ function createWindow() {
             symbolColor: '#2c2c2c',
             height: 48,
         },
-        trafficLightPosition: { x: 14, y: 14 },
+        trafficLightPosition: { x: 34, y: 45 },
     });
 
     const startUrl = process.env.ELECTRON_START_URL
