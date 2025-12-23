@@ -1,13 +1,16 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
-import { StorageProvider } from './storage/StorageContext'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.tsx";
+import { StorageProvider } from "./storage/StorageContext";
+import { ErrorBoundary } from "./components/ErrorBoundary/ErrorBoundary";
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <StorageProvider>
-      <App />
-    </StorageProvider>
+    <ErrorBoundary>
+      <StorageProvider>
+        <App />
+      </StorageProvider>
+    </ErrorBoundary>
   </StrictMode>,
-)
+);

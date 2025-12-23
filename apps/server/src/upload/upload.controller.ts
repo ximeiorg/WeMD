@@ -60,7 +60,9 @@ export class UploadController {
     }
 
     // Multer 默认按 latin1 解码文件名，这里转成 UTF-8，避免中文乱码
-    const originalName = Buffer.from(file.originalname, 'latin1').toString('utf8');
+    const originalName = Buffer.from(file.originalname, 'latin1').toString(
+      'utf8',
+    );
 
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
     const ext = extname(file.originalname);

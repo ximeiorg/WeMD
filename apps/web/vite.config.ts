@@ -1,28 +1,31 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
-// https://vite.dev/config/
+import path from "path";
+
 export default defineConfig({
-  // Electron 和大多数静态部署都建议使用相对路径
-  base: './',
+  base: "./",
+  resolve: {
+    alias: {
+      "@wemd/core": path.resolve(__dirname, "../../packages/core/src/index.ts"),
+    },
+  },
   plugins: [react()],
   build: {
     rollupOptions: {
       output: {
         manualChunks: {
-          // React 核心库单独分块
-          'react-vendor': ['react', 'react-dom'],
-          // CodeMirror 编辑器单独分块
-          'codemirror': [
-            'codemirror',
-            '@codemirror/lang-markdown',
-            '@codemirror/language',
-            '@codemirror/state',
-            '@codemirror/view',
-            '@uiw/codemirror-theme-github',
+          "react-vendor": ["react", "react-dom"],
+          codemirror: [
+            "codemirror",
+            "@codemirror/lang-markdown",
+            "@codemirror/language",
+            "@codemirror/state",
+            "@codemirror/view",
+            "@uiw/codemirror-theme-github",
           ],
         },
       },
     },
   },
-})
+});
