@@ -31,30 +31,42 @@ describe("ThemePanel", () => {
   const mockPersistActiveSnapshot = vi.fn();
 
   const mockThemes = [
-    { id: "default", name: "默认主题", css: "", isBuiltIn: true },
+    {
+      id: "default",
+      name: "默认主题",
+      css: "",
+      isBuiltIn: true,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    },
     {
       id: "custom1",
       name: "自定义主题",
       css: "body{}",
       isBuiltIn: false,
-      editorMode: "css",
+      editorMode: "css" as const,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     },
   ];
 
   beforeEach(() => {
     vi.clearAllMocks();
 
-    // Setup theme store mock
     vi.mocked(useThemeStore).mockImplementation((selector) => {
       const state = {
         themeId: "default",
+        themeName: "默认主题",
+        customCSS: "",
+        customThemes: [],
         selectTheme: mockSelectTheme,
+        setCustomCSS: vi.fn(),
+        getThemeCSS: vi.fn().mockReturnValue(""),
+        getAllThemes: () => mockThemes,
         createTheme: mockCreateTheme,
         updateTheme: mockUpdateTheme,
         deleteTheme: mockDeleteTheme,
         duplicateTheme: mockDuplicateTheme,
-        getAllThemes: () => mockThemes,
-        customThemes: {},
       };
       return selector(state);
     });
@@ -69,17 +81,26 @@ describe("ThemePanel", () => {
         markdown: "# Test",
       });
 
-    // Setup history store mock
     vi.mocked(useHistoryStore).mockImplementation((selector) => {
       const state = {
+        history: [],
+        loading: false,
+        filter: "",
+        activeId: null,
+        loadHistory: vi.fn(),
+        setFilter: vi.fn(),
+        setActiveId: vi.fn(),
+        saveSnapshot: vi.fn(),
         persistActiveSnapshot: mockPersistActiveSnapshot,
+        deleteEntry: vi.fn(),
+        clearHistory: vi.fn(),
+        updateTitle: vi.fn(),
       };
       return selector(state);
     });
 
-    // Setup UI theme mock
     vi.mocked(useUITheme).mockImplementation((selector) => {
-      const state = { theme: "light" };
+      const state = { theme: "default" as const, setTheme: vi.fn() };
       return selector(state);
     });
   });
@@ -120,7 +141,6 @@ describe("ThemePanel", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "自定义主题" }));
 
-    // 验证主题名称输入框显示选中的主题名称
     const nameInput = screen.getByPlaceholderText("输入主题名称...");
     expect(nameInput).toHaveValue("自定义主题");
   });
@@ -130,7 +150,6 @@ describe("ThemePanel", () => {
 
     fireEvent.click(screen.getByText("新建自定义主题"));
 
-    // 应显示创建模式选择界面
     expect(screen.getByText("选择创建方式")).toBeInTheDocument();
     expect(screen.getByText("可视化设计")).toBeInTheDocument();
     expect(screen.getByText("手写 CSS")).toBeInTheDocument();

@@ -128,27 +128,21 @@ describe("Header", () => {
   it("toggles header visibility (hide/show)", () => {
     render(<Header />);
 
-    // 点击隐藏标题栏按钮
     const hideBtn = screen.getByLabelText("隐藏标题栏");
     fireEvent.click(hideBtn);
 
-    // 隐藏后应显示浮动工具栏中的"显示标题栏"按钮
     expect(screen.getByLabelText("显示标题栏")).toBeInTheDocument();
 
-    // 点击显示按钮
     fireEvent.click(screen.getByLabelText("显示标题栏"));
 
-    // 标题栏恢复后，隐藏按钮重新出现
     expect(screen.getByLabelText("隐藏标题栏")).toBeInTheDocument();
   });
 
   it("shows floating toolbar buttons when header is hidden", () => {
     render(<Header />);
 
-    // 隐藏标题栏
     fireEvent.click(screen.getByLabelText("隐藏标题栏"));
 
-    // 验证浮动工具栏包含关键功能按钮
     expect(screen.getByLabelText("显示标题栏")).toBeInTheDocument();
     expect(screen.getByLabelText("主题管理")).toBeInTheDocument();
     expect(screen.getByLabelText("图床设置")).toBeInTheDocument();
@@ -160,10 +154,8 @@ describe("Header", () => {
 
     render(<Header />);
 
-    // 隐藏标题栏
     fireEvent.click(screen.getByLabelText("隐藏标题栏"));
 
-    // 验证 localStorage 被更新
     expect(setItemSpy).toHaveBeenCalledWith("wemd-header-autohide", "true");
 
     setItemSpy.mockRestore();
